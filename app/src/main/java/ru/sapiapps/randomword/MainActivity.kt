@@ -5,7 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -40,28 +43,33 @@ fun RandomWordScreen() {
     val words = listOf("Кот", "Собака", "Птица", "Дракон", "Феникс")
 
     // Переменная для хранения случайного слова
-    var randomWord by remember { mutableStateOf("Нажми кнопку для слова") }
+    var randomWord by remember { mutableStateOf("Нажми на кнопку!") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
+
         // Отображаем текст со случайным словом
         Text(
             text = randomWord,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
 
         // Кнопка для генерации случайного слова
         Button(onClick = {
             // Генерация случайного индекса и обновление переменной
             randomWord = words[Random.nextInt(words.size)]
-        }) {
-            Text(text = "Сгенерировать слово")
+        },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp) // Занимает всю ширину и чуть отступает от края
+        ) {
+            Text(text = "НОВОЕ СЛОВО")
         }
     }
 }
