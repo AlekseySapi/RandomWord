@@ -65,7 +65,7 @@ fun RandomWordScreen() {
         // Кнопка для генерации случайного слова
         Button(onClick = {
             // Генерация случайного индекса и обновление переменной
-            randomWord = words[Random.nextInt(words.size)]
+            randomWord = generateNewWord(words, randomWord)
         },
             modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp) // Занимает всю ширину и чуть отступает от края
         ) {
@@ -74,6 +74,14 @@ fun RandomWordScreen() {
     }
 }
 
+// Функция для генерации нового слова, отличного от текущего
+fun generateNewWord(words: List<String>, currentWord: String): String {
+    var newWord = currentWord
+    while (newWord == currentWord) {
+        newWord = words.random()
+    }
+    return newWord
+}
 
 @Preview(showBackground = true)
 @Composable
