@@ -6,6 +6,23 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <CheckBox
+        android:id="@+id/checkBoxNature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Природа" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Технологии" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRelations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Отношения" />
 
     <TextView
         android:id="@+id/randomWordTextView"
