@@ -1,43 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
-    <CheckBox
-        android:id="@+id/checkBoxNature"
-        android:layout_width="wrap_content"
+    <!-- Тумблеры категорий -->
+    <LinearLayout
+        android:id="@+id/categoryToggles"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Природа" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="16dp">
 
-    <CheckBox
-        android:id="@+id/checkBoxTech"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Технологии" />
+        <CheckBox
+            android:id="@+id/toggleNature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tgNature"/>
 
-    <CheckBox
-        android:id="@+id/checkBoxRelations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Отношения" />
+        <CheckBox
+            android:id="@+id/toggleTechnology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tgTechnology"/>
 
+        <CheckBox
+            android:id="@+id/toggleRelationships"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tgRelationships"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Текстовое поле для отображения случайного слова -->
     <TextView
-        android:id="@+id/randomWordTextView"
+        android:id="@+id/randomWordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/randomWord"
+        android:layout_gravity="center"
         android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginBottom="32dp" />
+        android:text="@string/randomWord"
+        android:layout_marginBottom="16dp"/>
 
+    <!-- Промежуточное пространство -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Кнопка генерации случайного слова -->
     <Button
-        android:id="@+id/generateButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/generateWordButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/genWord" />
-
-
+        android:text="@string/genWord"/>
 </LinearLayout>

@@ -2,4 +2,7 @@
     <string name="app_name">RandomWord</string>
     <string name="genWord">Новое слово</string>
     <string name="randomWord">Слово</string>
+    <string name="tgNature">Природа</string>
+    <string name="tgTechnology">Технологии</string>
+    <string name="tgRelationships">Отношения</string>
 </resources>

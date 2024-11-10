@@ -1,6 +1,7 @@
 package ru.sapiapps.randomword
 
 import android.os.Bundle
+import android.widget.CheckBox
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -24,62 +25,64 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.sapiapps.randomword.ui.theme.RandomWordTheme
-import kotlin.random.Random
+import android.widget.ToggleButton
+import androidx.appcompat.app.AppCompatActivity
+import ru.sapiapps.randomword.databinding.ActivityMainBinding
 
 class MainActivity : ComponentActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+    // Списки слов для каждой категории
+    private val natureWords = listOf("дерево", "река", "гора", "цветок", "небо")
+    private val techWords = listOf("компьютер", "смартфон", "интернет", "робот", "программа")
+    private val relationshipsWords = listOf("любовь", "дружба", "поддержка", "общение", "понимание")
+
+    // Активные категории для генерации слов
+    private val activeCategories = mutableListOf<List<String>>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            RandomWordTheme {
-                RandomWordScreen()
+
+        // Подключаем ViewBinding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Инициализация и работа с элементами
+        val categoryToggles = binding.categoryToggles
+        val randomWordText = binding.randomWordText
+        val generateWordButton = binding.generateWordButton
+
+        // Списки слов
+        val natureWords = listOf("лес", "гора", "река", "озеро", "облако", "звезда", "луна", "ветер", "камень", "солнце")
+        val technologyWords = listOf("компьютер", "интернет", "робот", "смартфон", "дрон", "квант", "код", "платформа", "сеть", "алгоритм")
+        val relationshipWords = listOf("дружба", "любовь", "семья", "поддержка", "доверие", "сочувствие", "близость", "уважение", "помощь", "эмпатия")
+
+        // Обработчик для генерации случайного слова
+        generateWordButton.setOnClickListener {
+            val selectedWords = mutableListOf<String>()
+
+            // Добавляем категории в зависимости от того, какие тумблеры выбраны
+            if (binding.toggleNature.isChecked) {
+                selectedWords.addAll(natureWords)
+            }
+            if (binding.toggleTechnology.isChecked) {
+                selectedWords.addAll(technologyWords)
+            }
+            if (binding.toggleRelationships.isChecked) {
+                selectedWords.addAll(relationshipWords)
+            }
+
+            // Если есть доступные слова, генерируем случайное
+            if (selectedWords.isNotEmpty()) {
+                val randomWord = selectedWords.random()
+                randomWordText.text = generateNewWord(selectedWords, randomWord).replaceFirstChar { it.uppercase() }
+            } else {
+                randomWordText.text = "Слово"
             }
         }
     }
 }
 
-@Composable
-fun RandomWordScreen() {
-    // Категории слов
-    val wordCategories = mapOf(
-        "Природа" to listOf("лес", "гора", "река", "озеро", "облако", "звезда", "луна", "ветер", "камень", "солнце"),
-        "Технологии" to listOf("компьютер", "интернет", "робот", "смартфон", "дрон", "квант", "код", "платформа", "сеть", "алгоритм"),
-        "Отношения" to listOf("дружба", "любовь", "семья", "поддержка", "доверие", "сочувствие", "близость", "уважение", "помощь", "эмпатия")
-    )
-
-    // Задаем список слов
-    val words = listOf("Кот", "Собака", "Птица", "Дракон", "Феникс")
-
-    // Переменная для хранения случайного слова
-    var randomWord by remember { mutableStateOf("Нажми на кнопку!") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Отображаем текст со случайным словом
-        Text(
-            text = randomWord,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-
-
-        // Кнопка для генерации случайного слова
-        Button(onClick = {
-            // Генерация случайного индекса и обновление переменной
-            randomWord = generateNewWord(words, randomWord)
-        },
-            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp) // Занимает всю ширину и чуть отступает от края
-        ) {
-            Text(text = "НОВОЕ СЛОВО")
-        }
-    }
-}
 
 // Функция для генерации нового слова, отличного от текущего
 fun generateNewWord(words: List<String>, currentWord: String): String {
@@ -88,12 +91,4 @@ fun generateNewWord(words: List<String>, currentWord: String): String {
         newWord = words.random()
     }
     return newWord
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewWordGeneratorScreen() {
-    RandomWordTheme {
-        RandomWordScreen()
-    }
 }
