@@ -18,19 +18,22 @@
             android:id="@+id/toggleNature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tgNature"/>
+            android:text="@string/tgNature"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/toggleTechnology"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tgTechnology"/>
+            android:text="@string/tgTechnology"
+            android:checked="true"/>
 
         <CheckBox
             android:id="@+id/toggleRelationships"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tgRelationships"/>
+            android:text="@string/tgRelationships"
+            android:checked="true"/>
     </LinearLayout>
 
     <View
