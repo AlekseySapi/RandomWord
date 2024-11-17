@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,63 +9,63 @@
         android:id="@+id/categoryToggles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="8dp">
+        android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/toggleNature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
             android:textOff="@string/tgNature"
             android:textOn="@string/tgNature"
-            android:textSize="@dimen/_tgFontSize"
-            android:layout_marginEnd="10dp"
-            android:checked="true"/>
+            android:textSize="@dimen/_tgFontSize" />
 
         <ToggleButton
             android:id="@+id/toggleRelationships"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:textOff="@string/tgRelationships"
             android:textOn="@string/tgRelationships"
-            android:textSize="@dimen/_tgFontSize"
-            android:checked="true"/>
+            android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/categoryToggles2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-    <ToggleButton
-        android:id="@+id/toggleTechnology"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textOff="@string/tgTechnology"
-        android:textOn="@string/tgTechnology"
-        android:textSize="@dimen/_tgFontSize"
-        android:layout_marginEnd="10dp"
-        android:checked="true"/>
+        <ToggleButton
+            android:id="@+id/toggleTechnology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
+            android:textOff="@string/tgTechnology"
+            android:textOn="@string/tgTechnology"
+            android:textSize="@dimen/_tgFontSize" />
 
-    <ToggleButton
-        android:id="@+id/toggleFantastic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tgFantastic"
-        android:layout_gravity="center_horizontal"
-        android:textOff="@string/tgFantastic"
-        android:textOn="@string/tgFantastic"
-        android:textSize="@dimen/_tgFontSize"
-        android:checked="true"/>
+        <ToggleButton
+            android:id="@+id/toggleFantastic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:checked="true"
+            android:text="@string/tgFantastic"
+            android:textOff="@string/tgFantastic"
+            android:textOn="@string/tgFantastic"
+            android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"/>
+        android:layout_weight="0.7" />
 
     <!-- Текстовое поле для отображения случайного слова -->
     <TextView
@@ -74,23 +73,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/_textSize"
+        android:layout_marginBottom="16dp"
         android:text="@string/randomWord"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="@dimen/_textSize" />
 
     <!-- Промежуточное пространство -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <!-- Кнопка генерации случайного слова -->
     <Button
         android:id="@+id/generateWordButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textSize="@dimen/_btnTextSize"
         android:backgroundTint="@color/purple_500"
+        android:text="@string/genWord"
         android:textColor="@android:color/white"
-        android:text="@string/genWord"/>
+        android:textSize="@dimen/_btnTextSize" />
 </LinearLayout>
