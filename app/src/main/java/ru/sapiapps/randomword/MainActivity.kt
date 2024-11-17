@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         val generateWordButton = binding.generateWordButton
 
         // Списки слов
-        val natureWords = listOf(
+        val natureWords = mutableListOf(
             "лес", "гора", "река", "озеро", "облако", "звезда", "луна", "ветер", "камень", "солнце",
             "океан", "песок", "планета", "почва", "сосна", "шум", "птица", "волна", "цветок",
             "трава", "болото", "сезон", "вулкан", "пейзаж", "дождь", "молния", "пыльца", "степь",
@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
             "трудность", "юг", "восток"
         )
 
-        val technologyWords = listOf(
+        val technologyWords = mutableListOf(
             "компьютер", "интернет", "робот", "смартфон", "дрон", "квант", "код", "платформа", "сеть", "алгоритм",
             "нейросеть", "бит", "программирование", "цифровизация", "система", "антивирус", "сигнал", "модем",
             "кодировка", "протокол", "данные", "облачный", "гаджет", "хакер", "веб", "обновление", "объект", "секунда",
@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
             "интерфейс", "профиль", "рабочий", "среда", "платформа", "планирование"
         )
 
-            val relationshipWords = listOf(
+            val relationshipWords = mutableListOf(
             "дружба", "любовь", "семья", "поддержка", "доверие", "сочувствие", "близость", "уважение", "помощь", "эмпатия",
             "взаимопонимание", "счастье", "забота", "согласие", "соглашение", "сопереживание", "совместимость", "лояльность",
             "открытость", "тепло", "объятие", "искренность", "прощение", "комфорт", "радость", "партнер", "союз", "взаимопомощь",
@@ -116,40 +116,48 @@ class MainActivity : ComponentActivity() {
             "сострадание", "слабость", "сила", "интуиция", "союз", "сохранение", "согласие", "взаимопонимание"
         )
 
+        val selectedWords = mutableListOf<String>()
+        selectedWords.addAll(natureWords)
+        selectedWords.addAll(technologyWords)
+        selectedWords.addAll(relationshipWords)
+
+        binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                selectedWords.addAll(natureWords)
+            } else {
+                selectedWords.removeAll(natureWords)
+            }
+        }
+
+        binding.toggleTechnology.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                selectedWords.addAll(technologyWords)
+            } else {
+                selectedWords.removeAll(technologyWords)
+            }
+        }
+
+        binding.toggleRelationships.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                selectedWords.addAll(relationshipWords)
+            } else {
+                selectedWords.removeAll(relationshipWords)
+            }
+        }
+
 
         // Обработчик для генерации случайного слова
         generateWordButton.setOnClickListener {
-            val selectedWords = mutableListOf<String>()
-
-            // Добавляем категории в зависимости от того, какие тумблеры выбраны
-            if (binding.toggleNature.isChecked) {
-                selectedWords.addAll(natureWords)
-            }
-            if (binding.toggleTechnology.isChecked) {
-                selectedWords.addAll(technologyWords)
-            }
-            if (binding.toggleRelationships.isChecked) {
-                selectedWords.addAll(relationshipWords)
-            }
-
-            // Если есть доступные слова, генерируем случайное
-            if (selectedWords.isNotEmpty()) {
-                val randomWord = selectedWords.random()
-                randomWordText.text = generateNewWord(selectedWords, randomWord).replaceFirstChar { it.uppercase() }
+            if (selectedWords.isNotEmpty()) {                       // Если есть доступные слова, генерируем случайное
+                val randomIndex = selectedWords.indices.random()    // Получаем случайный индекс
+                val randomWord = selectedWords[randomIndex]       // Получаем слово по индексу
+                selectedWords.removeAt(randomIndex)               // Удаляем слово по индексу
+                randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
             } else {
                 // val count = relationshipWords.size
-                randomWordText.text = "Слово"
+                randomWordText.text = "Слова закончились!"
             }
         }
     }
 }
 
-
-// Функция для генерации нового слова, отличного от текущего
-fun generateNewWord(words: List<String>, currentWord: String): String {
-    var newWord = currentWord
-    while (newWord == currentWord) {
-        newWord = words.random()
-    }
-    return newWord
-}
