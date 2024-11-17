@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_tgFontSize">18sp</dimen>
+    <dimen name="_textSize">28sp</dimen>
+    <dimen name="_btnTextSize">18sp</dimen>
+</resources>
