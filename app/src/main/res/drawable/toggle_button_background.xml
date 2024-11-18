@@ -1,0 +1,16 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Состояние включено -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF8357F6" /> <!-- Светло-фиолетовый -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <!-- Состояние выключено -->
+    <item android:state_checked="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFDBBEEA" /> <!-- Пастельный фиолетовый -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
