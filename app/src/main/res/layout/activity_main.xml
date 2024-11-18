@@ -20,9 +20,9 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/toggle_button_background"
             android:checked="true"
+            android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
             android:textOff="@string/tgNature"
-            android:padding="8dp"
             android:textOn="@string/tgNature"
             android:textSize="@dimen/_tgFontSize" />
 
@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/toggle_button_background"
             android:checked="true"
+            android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
             android:textOff="@string/tgRelationships"
             android:textOn="@string/tgRelationships"
-            android:padding="8dp"
             android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
@@ -51,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:padding="8dp"
             android:background="@drawable/toggle_button_background"
             android:checked="true"
+            android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
             android:textOff="@string/tgTechnology"
             android:textOn="@string/tgTechnology"
@@ -67,7 +67,6 @@
             android:background="@drawable/toggle_button_background"
             android:checked="true"
             android:padding="8dp"
-            android:text="@string/tgFantastic"
             android:textColor="@drawable/toggle_button_text_color"
             android:textOff="@string/tgFantastic"
             android:textOn="@string/tgFantastic"
