@@ -4,6 +4,6 @@
     <string name="randomWord">Слово</string>
     <string name="tgNature">Природа</string>
     <string name="tgTechnology">Технологии</string>
-    <string name="tgRelationships">Отношения</string>
+    <string name="tgSocial">Социум</string>
     <string name="tgFantastic">Фантастика</string>
 </resources>

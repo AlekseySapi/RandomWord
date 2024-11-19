@@ -27,15 +27,15 @@
             android:textSize="@dimen/_tgFontSize" />
 
         <ToggleButton
-            android:id="@+id/toggleRelationships"
+            android:id="@+id/toggleSocial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/toggle_button_background"
             android:checked="true"
             android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
-            android:textOff="@string/tgRelationships"
-            android:textOn="@string/tgRelationships"
+            android:textOff="@string/tgSocial"
+            android:textOn="@string/tgSocial"
             android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
