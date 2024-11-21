@@ -3,9 +3,35 @@ package ru.sapiapps.randomword
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ru.sapiapps.randomword.databinding.ActivityMainBinding
+import android.os.CountDownTimer
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    // Переменная для таймера
+    private var countDownTimer: CountDownTimer? = null
+
+    // Запуск таймера
+    private fun startTimer() {
+        val timerTextView = binding.timerTextView // Ссылка на TextView для таймера
+
+        // Отмена предыдущего таймера, если он запущен
+        countDownTimer?.cancel()
+
+        // Создаём новый таймер на 15 секунд (Поставлю +1 секунду, чтобы вначале отображалось 15)
+        countDownTimer = object : CountDownTimer(16000, 1000) { // 15000 мс = 15 секунд
+            override fun onTick(millisUntilFinished: Long) {
+                // Обновляем текст таймера каждую секунду
+                timerTextView.text = (millisUntilFinished / 1000).toString()
+            }
+
+            override fun onFinish() {
+                // Когда таймер завершился
+                timerTextView.text = "0"
+            }
+        }.start()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -200,9 +226,16 @@ class MainActivity : ComponentActivity() {
                 val randomWord = selectedWords[randomIndex]       // Получаем слово по индексу
                 selectedWords.removeAt(randomIndex)               // Удаляем слово по индексу
                 randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
+
+                // Запуск таймера
+                startTimer()
             } else {
                 // val count = relationshipWords.size
-                randomWordText.text = "Слова закончились!"
+                randomWordText.text = "Нет слов.."
+
+                countDownTimer?.cancel()
+                val timerTextView = binding.timerTextView
+                timerTextView.text = ""
             }
         }
     }
