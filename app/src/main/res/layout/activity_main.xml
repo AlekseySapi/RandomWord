@@ -4,6 +4,36 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <LinearLayout
+        android:id="@+id/categoryTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/timerToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toggle_selector"
+            android:checked="true"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:textOff="Таймер"
+            android:textOn="Таймер" />
+
+        <TextView
+            android:id="@+id/wordsCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="1234"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
     <!-- Тумблеры категорий -->
     <LinearLayout
         android:id="@+id/categoryToggles"
@@ -76,7 +106,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6" />
+        android:layout_weight="0.4" />
 
     <!-- Таймер -->
     <TextView
@@ -84,10 +114,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:text=""
-        android:textSize="26sp"
         android:textColor="@color/black"
-        android:layout_marginBottom="8dp"/>
+        android:textSize="26sp" />
 
     <View
         android:layout_width="match_parent"

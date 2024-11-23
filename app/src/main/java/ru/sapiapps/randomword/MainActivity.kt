@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ru.sapiapps.randomword.databinding.ActivityMainBinding
 import android.os.CountDownTimer
+import android.widget.ToggleButton
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -228,14 +229,18 @@ class MainActivity : ComponentActivity() {
                 randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
                 // Запуск таймера
-                startTimer()
+                if (binding.timerToggle.isChecked) {
+                    startTimer()
+                } else {
+                    countDownTimer?.cancel()
+                    binding.timerTextView.text = ""
+                }
             } else {
                 // val count = relationshipWords.size
                 randomWordText.text = "Нет слов.."
 
                 countDownTimer?.cancel()
-                val timerTextView = binding.timerTextView
-                timerTextView.text = ""
+                binding.timerTextView.text = ""
             }
         }
     }
