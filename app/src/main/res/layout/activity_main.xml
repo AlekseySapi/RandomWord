@@ -13,6 +13,14 @@
         android:orientation="horizontal">
 
         <ToggleButton
+            android:id="@+id/languageToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textOff="ENG"
+            android:textOn="RUS" />
+
+        <ToggleButton
             android:id="@+id/timerToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +35,8 @@
             android:id="@+id/wordsCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_marginStart="16dp"
+            android:gravity="end"
             android:text="1234"
             android:textColor="@color/black"
             android:textSize="20sp" />
