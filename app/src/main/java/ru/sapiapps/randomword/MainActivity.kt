@@ -261,6 +261,9 @@ class MainActivity : ComponentActivity() {
         selectedWords.addAll(technologyWords)
         selectedWords.addAll(fantasticWords)
 
+        binding.wordsCountTextView.text = selectedWords.size.toString()
+
+
         binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 selectedWords.addAll(natureWords)
@@ -302,6 +305,8 @@ class MainActivity : ComponentActivity() {
                 selectedWords.removeAt(randomIndex)               // Удаляем слово по индексу
                 randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
+                binding.wordsCountTextView.text = selectedWords.size.toString()
+
                 // Запуск таймера
                 if (binding.timerToggle.isChecked) {
                     startTimer()
@@ -312,8 +317,9 @@ class MainActivity : ComponentActivity() {
             } else {
                 // val count = relationshipWords.size
                 randomWordText.text = "Нет слов.."
+                binding.wordsCountTextView.text = "0"
 
-                countDownTimer?.cancel()
+                    countDownTimer?.cancel()
                 binding.timerTextView.text = ""
             }
         }
