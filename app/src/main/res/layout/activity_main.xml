@@ -61,20 +61,20 @@
             android:checked="true"
             android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
-            android:textOff="@string/tgNature"
-            android:textOn="@string/tgNature"
+            android:textOff="@string/toggle_nature"
+            android:textOn="@string/toggle_nature"
             android:textSize="@dimen/_tgFontSize" />
 
         <ToggleButton
-            android:id="@+id/toggleSocial"
+            android:id="@+id/toggleSociety"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/toggle_button_background"
             android:checked="true"
             android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
-            android:textOff="@string/tgSocial"
-            android:textOn="@string/tgSocial"
+            android:textOff="@string/toggle_society"
+            android:textOn="@string/toggle_society"
             android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
@@ -94,8 +94,8 @@
             android:checked="true"
             android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
-            android:textOff="@string/tgTechnology"
-            android:textOn="@string/tgTechnology"
+            android:textOff="@string/toggle_technology"
+            android:textOn="@string/toggle_technology"
             android:textSize="@dimen/_tgFontSize" />
 
         <ToggleButton
@@ -107,8 +107,8 @@
             android:checked="true"
             android:padding="8dp"
             android:textColor="@drawable/toggle_button_text_color"
-            android:textOff="@string/tgFantastic"
-            android:textOn="@string/tgFantastic"
+            android:textOff="@string/toggle_fantastic"
+            android:textOn="@string/toggle_fantastic"
             android:textSize="@dimen/_tgFontSize" />
     </LinearLayout>
 
@@ -141,7 +141,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:text="@string/randomWord"
+        android:text="@string/text_field"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="@dimen/_textSize"
         android:textStyle="bold" />
@@ -158,7 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/ripple_effect"
-        android:text="@string/genWord"
+        android:text="@string/btn_text"
         android:textColor="@android:color/white"
         android:textSize="@dimen/_btnTextSize" />
 </LinearLayout>

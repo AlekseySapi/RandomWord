@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">RandomWord</string>
-    <string name="genWord">Новое слово</string>
-    <string name="randomWord">Слово</string>
-    <string name="tgNature">Природа</string>
-    <string name="tgTechnology">Технологии</string>
-    <string name="tgSocial">Социум</string>
-    <string name="tgFantastic">Фантастика</string>
+    <string name="btn_text">Новое слово</string>
+    <string name="text_field">Слово</string>
+    <string name="toggle_nature">Природа</string>
+    <string name="toggle_society">Общество</string>
+    <string name="toggle_technology">Технологии</string>
+    <string name="toggle_fantastic">Фантастика</string>
+    <string name="no_words">Нет слов..</string>
 </resources>

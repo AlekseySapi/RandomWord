@@ -4,101 +4,234 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ru.sapiapps.randomword.databinding.ActivityMainBinding
 import android.os.CountDownTimer
+import org.json.JSONObject
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    // Переменная для таймера
-    private var countDownTimer: CountDownTimer? = null
+    // Объявление переменных
+    lateinit var wordLists: WordLists  // Списки слов
+    var currentLanguage: String = "RUS"  // Начальный язык
+    val activeWordList = mutableListOf<String>()  // Список активных слов
+    private var countDownTimer: CountDownTimer? = null  // Таймер
+
+    data class WordLists(
+        val russian: Map<String, List<String>>,
+        val english: Map<String, List<String>>
+    )
+
+    private fun loadWordsFromJson(): WordLists {
+        val json = assets.open("words.json").bufferedReader().use { it.readText() }
+        val jsonObject = JSONObject(json)
+
+        val russian = jsonObject.getJSONObject("russian").toMap()
+        val english = jsonObject.getJSONObject("english").toMap()
+
+        return WordLists(russian, english)
+    }
+
+    private fun JSONObject.toMap(): Map<String, List<String>> {
+        val map = mutableMapOf<String, List<String>>()
+        keys().forEach { key ->
+            val list = getJSONArray(key)
+            map[key] = List(list.length()) { list.getString(it) }
+        }
+        return map
+    }
 
     // Запуск таймера
     private fun startTimer() {
-        val timerTextView = binding.timerTextView // Ссылка на TextView для таймера
-
-        // Отмена предыдущего таймера, если он запущен
+        val timerTextView = binding.timerTextView
         countDownTimer?.cancel()
-
-        // Создаём новый таймер на 15 секунд (Поставлю +1 секунду, чтобы вначале отображалось 15)
-        countDownTimer = object : CountDownTimer(16000, 1000) { // 15000 мс = 15 секунд
+        countDownTimer = object : CountDownTimer(16000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                // Обновляем текст таймера каждую секунду
                 timerTextView.text = (millisUntilFinished / 1000).toString()
             }
 
             override fun onFinish() {
-                // Когда таймер завершился
                 timerTextView.text = "0"
             }
         }.start()
     }
 
+    private fun updateWordList(category: String, isChecked: Boolean) {
+        // Определяем, к какому полю обращаться в зависимости от языка
+        val languageWordList = when (currentLanguage) {
+            "RUS" -> wordLists.russian
+            "ENG" -> wordLists.english
+            else -> emptyMap()  // В случае неизвестного языка, возвращаем пустую карту
+        }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        // Получаем список слов для выбранной категории
+        val selectedWords = languageWordList[category] ?: emptyList()
 
-        // Подключаем ViewBinding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        if (isChecked) {
+            activeWordList.addAll(selectedWords)
+        } else {
+            activeWordList.removeAll(selectedWords)
+        }
+    }
 
-        // Инициализация и работа с элементами
-        val randomWordText = binding.randomWordText
-        val generateWordButton = binding.generateWordButton
+    private fun updateWordsCountTextView() {
+        binding.wordsCountTextView.text = activeWordList.size.toString()
+    }
 
+    private fun switchLanguage(newLanguage: String) {
+        currentLanguage = newLanguage  // Сначала меняем язык
 
+        // Меняем локаль приложения
+        setLocale(if (newLanguage == "RUS") "ru" else "en")
 
-        val selectedWords = mutableListOf<String>()
-        selectedWords.addAll(natureWords)
-        selectedWords.addAll(socialWords)
-        selectedWords.addAll(technologyWords)
-        selectedWords.addAll(fantasticWords)
+        // Очищаем активный список слов и обновляем его
+        activeWordList.clear()
 
-        binding.wordsCountTextView.text = selectedWords.size.toString()
+        // Обновляем список слов на основе нового языка
+        val languageWordList = when (currentLanguage) {
+            "RUS" -> wordLists.russian
+            "ENG" -> wordLists.english
+            else -> emptyMap()
+        }
 
-
-        binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedWords.addAll(natureWords)
-            } else {
-                selectedWords.removeAll(natureWords)
+        for (category in listOf("Nature", "Society", "Technology", "Fantastic")) {
+            val toggleState = getToggleState(category)
+            if (toggleState) {
+                activeWordList.addAll(languageWordList[category] ?: emptyList())
             }
         }
 
-        binding.toggleSocial.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedWords.addAll(socialWords)
-            } else {
-                selectedWords.removeAll(socialWords)
-            }
+        // Обновляем UI
+        updateWordsCountTextView()
+        updateUILanguage()
+        countDownTimer?.cancel()
+        binding.timerTextView.text = ""
+    }
+
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration.apply { setLocale(locale) }
+        val context = createConfigurationContext(config)
+        resources.updateConfiguration(config, context.resources.displayMetrics)
+
+        updateUILanguage()
+        updateToggleTexts(binding)
+    }
+
+
+    private fun updateUILanguage() {
+        binding.toggleNature.text = getString(R.string.toggle_nature)
+        binding.toggleSociety.text = getString(R.string.toggle_society)
+        binding.toggleTechnology.text = getString(R.string.toggle_technology)
+        binding.toggleFantastic.text = getString(R.string.toggle_fantastic)
+        binding.generateWordButton.text = getString(R.string.btn_text)
+        binding.randomWordText.text = getString(R.string.text_field)
+
+        binding.randomWordText.text = if (activeWordList.isEmpty()) {
+            getString(R.string.no_words)
+        } else {
+            getString(R.string.text_field) // Текст поля по умолчанию
+        }
+    }
+
+    private fun updateToggleTexts(binding: ActivityMainBinding) {
+        binding.toggleNature.textOn = getString(R.string.toggle_nature)
+        binding.toggleNature.textOff = getString(R.string.toggle_nature)
+
+        binding.toggleSociety.textOn = getString(R.string.toggle_society)
+        binding.toggleSociety.textOff = getString(R.string.toggle_society)
+
+        binding.toggleTechnology.textOn = getString(R.string.toggle_technology)
+        binding.toggleTechnology.textOff = getString(R.string.toggle_technology)
+
+        binding.toggleFantastic.textOn = getString(R.string.toggle_fantastic)
+        binding.toggleFantastic.textOff = getString(R.string.toggle_fantastic)
+    }
+
+    private fun getToggleState(category: String): Boolean {
+        return when (category) {
+            "Nature" -> binding.toggleNature.isChecked
+            "Society" -> binding.toggleSociety.isChecked
+            "Technology" -> binding.toggleTechnology.isChecked
+            "Fantastic" -> binding.toggleFantastic.isChecked
+            else -> false
+        }
+    }
+
+    private fun setupListeners() {
+        binding.languageToggle.setOnCheckedChangeListener { _, isChecked ->
+            val newLanguage = if (isChecked) "ENG" else "RUS"
+            switchLanguage(newLanguage)
+            updateUILanguage()
+        }
+
+        binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Nature", isChecked)
+        }
+
+        binding.toggleSociety.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Society", isChecked)
         }
 
         binding.toggleTechnology.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedWords.addAll(technologyWords)
-            } else {
-                selectedWords.removeAll(technologyWords)
-            }
+            updateWordList("Technology", isChecked)
         }
 
         binding.toggleFantastic.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedWords.addAll(fantasticWords)
-            } else {
-                selectedWords.removeAll(fantasticWords)
-            }
+            updateWordList("Fantastic", isChecked)
         }
+    }
+
+    private fun populateActiveWordList() {
+        // Определяем, к какому словарю обращаться в зависимости от языка
+        val languageWordList = when (currentLanguage) {
+            "RUS" -> wordLists.russian
+            "ENG" -> wordLists.english
+            else -> emptyMap() // Если язык неизвестен
+        }
+
+        // Перебираем все категории и добавляем слова из них
+        val allCategories = listOf("Nature", "Society", "Technology", "Fantastic")
+        for (category in allCategories) {
+            val words = languageWordList[category] ?: emptyList() // Получаем слова из категории
+            activeWordList.addAll(words) // Добавляем их в активный список
+        }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setLocale("ru")
+
+        wordLists = loadWordsFromJson()
+
+        // Привязка событий для переключателя языка и категорий
+        setupListeners()
+
+
+        // Инициализация списка активных слов
+        populateActiveWordList()
+
+        updateWordsCountTextView()
+
+        // Установить начальный язык и обновить UI
+        updateUILanguage()
+
 
 
         // Обработчик для генерации случайного слова
-        generateWordButton.setOnClickListener {
-            if (selectedWords.isNotEmpty()) {                       // Если есть доступные слова, генерируем случайное
-                val randomIndex = selectedWords.indices.random()    // Получаем случайный индекс
-                val randomWord = selectedWords[randomIndex]       // Получаем слово по индексу
-                selectedWords.removeAt(randomIndex)               // Удаляем слово по индексу
-                randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
+        binding.generateWordButton.setOnClickListener {
+            if (activeWordList.isNotEmpty()) {
+                val randomIndex = activeWordList.indices.random()
+                val randomWord = activeWordList[randomIndex]
+                activeWordList.removeAt(randomIndex)
+                binding.randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
-                binding.wordsCountTextView.text = selectedWords.size.toString()
+                updateWordsCountTextView()
 
-                // Запуск таймера
                 if (binding.timerToggle.isChecked) {
                     startTimer()
                 } else {
@@ -106,14 +239,11 @@ class MainActivity : ComponentActivity() {
                     binding.timerTextView.text = ""
                 }
             } else {
-                // val count = relationshipWords.size
-                randomWordText.text = "Нет слов.."
                 binding.wordsCountTextView.text = "0"
-
-                    countDownTimer?.cancel()
+                countDownTimer?.cancel()
                 binding.timerTextView.text = ""
+                binding.randomWordText.text = getString(R.string.no_words)
             }
         }
     }
 }
-
