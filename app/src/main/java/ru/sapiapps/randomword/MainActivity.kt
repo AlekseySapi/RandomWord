@@ -73,10 +73,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun updateWordsCountTextView() {
-        binding.wordsCountTextView.text = activeWordList.size.toString()
-    }
-
     private fun switchLanguage(newLanguage: String) {
         currentLanguage = newLanguage  // Сначала меняем язык
 
@@ -101,7 +97,6 @@ class MainActivity : ComponentActivity() {
         }
 
         // Обновляем UI
-        updateWordsCountTextView()
         updateUILanguage()
         countDownTimer?.cancel()
         binding.timerTextView.text = ""
@@ -159,29 +154,23 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun setupListeners() {
-        binding.languageToggle.setOnCheckedChangeListener { _, isChecked ->
-            val newLanguage = if (isChecked) "ENG" else "RUS"
-            switchLanguage(newLanguage)
-            updateUILanguage()
-        }
+    private fun initializeLanguageToggle() {
+        binding.languageToggleGroup.check(
+            if (currentLanguage == "RUS") R.id.btn_rus else R.id.btn_eng
+        )
 
-        binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
-            updateWordList("Nature", isChecked)
-        }
-
-        binding.toggleSociety.setOnCheckedChangeListener { _, isChecked ->
-            updateWordList("Society", isChecked)
-        }
-
-        binding.toggleTechnology.setOnCheckedChangeListener { _, isChecked ->
-            updateWordList("Technology", isChecked)
-        }
-
-        binding.toggleFantastic.setOnCheckedChangeListener { _, isChecked ->
-            updateWordList("Fantastic", isChecked)
+        binding.languageToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val newLanguage = when (checkedId) {
+                    R.id.btn_rus -> "RUS"
+                    R.id.btn_eng -> "ENG"
+                    else -> return@addOnButtonCheckedListener
+                }
+                switchLanguage(newLanguage)
+            }
         }
     }
+
 
     private fun populateActiveWordList() {
         // Определяем, к какому словарю обращаться в зависимости от языка
@@ -206,20 +195,37 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
         setLocale("ru")
 
+        initializeLanguageToggle()
+
         wordLists = loadWordsFromJson()
-
-        // Привязка событий для переключателя языка и категорий
-        setupListeners()
-
 
         // Инициализация списка активных слов
         populateActiveWordList()
 
-        updateWordsCountTextView()
-
         // Установить начальный язык и обновить UI
         updateUILanguage()
 
+
+        binding.toggleNature.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Nature", isChecked)
+        }
+        binding.toggleSociety.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Society", isChecked)
+        }
+        binding.toggleTechnology.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Technology", isChecked)
+        }
+        binding.toggleFantastic.setOnCheckedChangeListener { _, isChecked ->
+            updateWordList("Fantastic", isChecked)
+        }
+
+
+        binding.timerToggle.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked) {
+                countDownTimer?.cancel()
+                binding.timerTextView.text = ""
+            }
+        }
 
 
         // Обработчик для генерации случайного слова
@@ -230,7 +236,6 @@ class MainActivity : ComponentActivity() {
                 activeWordList.removeAt(randomIndex)
                 binding.randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
-                updateWordsCountTextView()
 
                 if (binding.timerToggle.isChecked) {
                     startTimer()
@@ -239,7 +244,6 @@ class MainActivity : ComponentActivity() {
                     binding.timerTextView.text = ""
                 }
             } else {
-                binding.wordsCountTextView.text = "0"
                 countDownTimer?.cancel()
                 binding.timerTextView.text = ""
                 binding.randomWordText.text = getString(R.string.no_words)

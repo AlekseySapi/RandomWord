@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="_tgFontSize">18sp</dimen>
-    <dimen name="_textSize">28sp</dimen>
-    <dimen name="_btnTextSize">18sp</dimen>
+    <dimen name="toggles_font_size">18sp</dimen>
+    <dimen name="word_font_size">28sp</dimen>
+
+    <!-- Кнопка -->
+    <dimen name="btn_text_size">18sp</dimen>
+    <dimen name="btn_height">70dp</dimen>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="GenButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:backgroundTint">@color/button_background_color</item>
+        <item name="android:foreground">@drawable/ripple_effect</item>
+    </style>
+
+    <style name="LangButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="android:textColor">@color/toggle_text_color</item>
+        <item name="android:backgroundTint">@color/toggle_background_color</item>
+        <item name="android:foreground">@drawable/ripple_effect</item>
+    </style>
+
+    <!-- Переопределение скругления -->
+    <style name="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item> <!-- Радиус углов -->
+        <item name="cornerSize">12dp</item> <!-- Размер скругления -->
+    </style>
+</resources>
