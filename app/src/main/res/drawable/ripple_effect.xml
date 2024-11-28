@@ -1,2 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/ripple_color" />
+    android:color="#66FFFFFF"> <!-- Полупрозрачный белый риппл -->
+
+    <!-- Фон кнопки -->
+    <item android:drawable="@drawable/button_background" />
+
+    <!-- Маска для риппл-эффекта -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFBF00" /> <!-- Основной цвет кнопки -->
+            <corners android:radius="12dp" /> <!-- Повторяем форму -->
+        </shape>
+    </item>
+</ripple>

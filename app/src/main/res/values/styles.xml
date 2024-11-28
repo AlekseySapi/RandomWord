@@ -3,16 +3,15 @@
 
     <style name="GenButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
-        <item name="android:textColor">@color/button_text_color</item>
         <item name="android:backgroundTint">@color/button_background_color</item>
-        <item name="android:foreground">@drawable/ripple_effect</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/ripple_effect</item>
     </style>
 
     <style name="LangButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
-        <item name="android:textColor">@color/toggle_text_color</item>
-        <item name="android:backgroundTint">@color/toggle_background_color</item>
-        <item name="android:foreground">@drawable/ripple_effect</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/lang_background_color</item>
     </style>
 
     <!-- Переопределение скругления -->

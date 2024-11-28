@@ -7,4 +7,8 @@
     <string name="toggle_technology">Технологии</string>
     <string name="toggle_fantastic">Фантастика</string>
     <string name="no_words">Нет слов..</string>
+    <string name="eng">ENG 🇬🇧</string>
+    <string name="rus">RUS 🇷🇺</string>
+    <string name="time_on">⏳</string>
+    <string name="time_off">⌛</string>
 </resources>

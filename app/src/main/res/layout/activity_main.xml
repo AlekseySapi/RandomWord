@@ -27,18 +27,18 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_eng"
+                    style="@style/LangButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:style="@style/LangButtonStyle"
-                    android:text="ENG 🇬🇧" />
+                    android:text="@string/eng" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_rus"
+                    style="@style/LangButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:style="@style/LangButtonStyle"
-                    android:text="RUS 🇷🇺" />
+                    android:text="@string/rus" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <View
@@ -53,10 +53,10 @@
                 android:background="@drawable/timer_background"
                 android:checked="true"
                 android:gravity="center"
-                android:text="⏳"
-                android:textOff="⌛"
-                android:textOn="⏳"
-                android:textSize="24dp" />
+                android:text="@string/time_on"
+                android:textOff="@string/time_off"
+                android:textOn="@string/time_on"
+                android:textSize="@dimen/timer_font_size" />
         </LinearLayout>
 
 
@@ -77,7 +77,7 @@
                 android:background="@drawable/toggle_button_background"
                 android:checked="true"
                 android:padding="8dp"
-                android:style="@style/CustomToggleButtonStyle"
+                android:textColor="@color/black"
                 android:textOff="@string/toggle_nature"
                 android:textOn="@string/toggle_nature"
                 android:textSize="@dimen/toggles_font_size" />
@@ -89,7 +89,7 @@
                 android:background="@drawable/toggle_button_background"
                 android:checked="true"
                 android:padding="8dp"
-                android:style="@style/CustomToggleButtonStyle"
+                android:textColor="@color/black"
                 android:textOff="@string/toggle_society"
                 android:textOn="@string/toggle_society"
                 android:textSize="@dimen/toggles_font_size" />
@@ -110,7 +110,7 @@
                 android:background="@drawable/toggle_button_background"
                 android:checked="true"
                 android:padding="8dp"
-                android:style="@style/CustomToggleButtonStyle"
+                android:textColor="@color/black"
                 android:textOff="@string/toggle_technology"
                 android:textOn="@string/toggle_technology"
                 android:textSize="@dimen/toggles_font_size" />
@@ -123,7 +123,7 @@
                 android:background="@drawable/toggle_button_background"
                 android:checked="true"
                 android:padding="8dp"
-                android:style="@style/CustomToggleButtonStyle"
+                android:textColor="@color/black"
                 android:textOff="@string/toggle_fantastic"
                 android:textOn="@string/toggle_fantastic"
                 android:textSize="@dimen/toggles_font_size" />
@@ -150,23 +150,15 @@
             android:layout_weight="0.1" />
 
         <!-- Текстовое поле для отображения случайного слова -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/randomWordText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <TextView
-                android:id="@+id/randomWordText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/text_field"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/word_font_size"
-                android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
+            android:layout_gravity="center"
+            android:text="@string/text_field"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/word_font_size"
+            android:textStyle="bold" />
 
         <!-- Промежуточное пространство -->
         <View
@@ -177,11 +169,12 @@
         <!-- Кнопка генерации случайного слова -->
         <Button
             android:id="@+id/generateWordButton"
+            style="@style/GenButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height"
-            android:style="@style/GenButtonStyle"
             android:text="@string/btn_text"
-            android:textSize="@dimen/btn_text_size" />
+            android:textSize="@dimen/btn_text_size"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

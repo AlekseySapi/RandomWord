@@ -10,14 +10,12 @@
     <color name="ripple_color">#A5D6A7</color>
 
     <!-- Переключатель языков -->
-    <color name="toggle_text_color">#212121</color>
-    <color name="toggle_background_color">#FF9800</color>
+    <color name="lang_background_color">#2F869A</color>
 
     <!-- Тумблеры -->
-    <color name="toggle_checked_background">#FF9800</color>
-    <color name="toggle_default_background">#775500</color>
+    <color name="toggle_checked_background">#F4C430</color>
+    <color name="toggle_default_background">#705D23</color>
 
     <!-- Кнопка -->
-    <color name="button_text_color">#FFFFFF</color>
-    <color name="button_background_color">#4CAF50</color>
+    <color name="button_background_color">#FFBF00</color>
 </resources>

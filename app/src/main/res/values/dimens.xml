@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="timer_font_size">24sp</dimen>
     <dimen name="toggles_font_size">18sp</dimen>
     <dimen name="word_font_size">28sp</dimen>
 
