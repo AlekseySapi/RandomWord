@@ -193,6 +193,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val randomWordText = binding.randomWordText
         setLocale("ru")
 
         initializeLanguageToggle()
@@ -224,7 +225,8 @@ class MainActivity : ComponentActivity() {
             if (!isChecked) {
                 countDownTimer?.cancel()
                 binding.timerTextView.text = ""
-            }
+            } else if (randomWordText.text != getString(R.string.no_words) && randomWordText.text != getString(R.string.text_field))
+                startTimer()
         }
 
 
@@ -234,7 +236,7 @@ class MainActivity : ComponentActivity() {
                 val randomIndex = activeWordList.indices.random()
                 val randomWord = activeWordList[randomIndex]
                 activeWordList.removeAt(randomIndex)
-                binding.randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
+                randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
 
                 if (binding.timerToggle.isChecked) {
@@ -246,7 +248,7 @@ class MainActivity : ComponentActivity() {
             } else {
                 countDownTimer?.cancel()
                 binding.timerTextView.text = ""
-                binding.randomWordText.text = getString(R.string.no_words)
+                randomWordText.text = getString(R.string.no_words)
             }
         }
     }
