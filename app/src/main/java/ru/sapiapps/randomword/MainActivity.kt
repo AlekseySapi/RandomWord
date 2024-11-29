@@ -42,14 +42,19 @@ class MainActivity : ComponentActivity() {
 
     // Запуск таймера
     private fun startTimer() {
+        val time: Long = 16000
+        val tick: Long = 1000
         val timerTextView = binding.timerTextView
         countDownTimer?.cancel()
-        countDownTimer = object : CountDownTimer(16000, 1000) {
+        binding.timerToggle.text = getString(R.string.time_on)
+        countDownTimer = object : CountDownTimer(time, tick) {
             override fun onTick(millisUntilFinished: Long) {
-                timerTextView.text = (millisUntilFinished / 1000).toString()
+                val secondsLeft = millisUntilFinished / tick
+                timerTextView.text = (secondsLeft).toString()
             }
 
             override fun onFinish() {
+                binding.timerToggle.text = getString(R.string.time_off)
                 timerTextView.text = "0"
             }
         }.start()
