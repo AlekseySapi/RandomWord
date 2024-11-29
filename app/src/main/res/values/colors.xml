@@ -7,14 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="ripple_color">#A5D6A7</color>
+    <color name="ripple_color">#4DC5DC88</color> <!-- 4D - это 30% прозрачности -->
 
     <!-- Переключатель языков -->
-    <color name="lang_background_color">#2F869A</color>
+    <color name="lang_background_color">#8F9E79</color>
 
     <!-- Тумблеры -->
     <color name="toggle_checked_background">#F4C430</color>
-    <color name="toggle_default_background">#705D23</color>
+    <color name="toggle_unchecked_background">#705D23</color>
 
     <!-- Кнопка -->
     <color name="button_background_color">#FFBF00</color>

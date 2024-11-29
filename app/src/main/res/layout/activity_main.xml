@@ -50,7 +50,7 @@
                 android:id="@+id/timerToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/timer_background"
+                android:background="@drawable/timer_ripple_effect"
                 android:checked="true"
                 android:gravity="center"
                 android:text="@string/time_on"
