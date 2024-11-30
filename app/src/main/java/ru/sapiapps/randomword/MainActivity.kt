@@ -51,10 +51,10 @@ class MainActivity : ComponentActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / tick
                 timerTextView.text = (secondsLeft).toString()
+                if (secondsLeft == 0L) binding.timerToggle.text = getString(R.string.time_off)
             }
 
             override fun onFinish() {
-                binding.timerToggle.text = getString(R.string.time_off)
                 timerTextView.text = "0"
             }
         }.start()
