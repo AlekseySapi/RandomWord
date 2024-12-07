@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ru.sapiapps.randomword.databinding.ActivityMainBinding
 import android.os.CountDownTimer
+import android.view.animation.AnimationUtils
 import org.json.JSONObject
 import java.util.Locale
 
@@ -243,9 +244,13 @@ class MainActivity : ComponentActivity() {
                 activeWordList.removeAt(randomIndex)
                 randomWordText.text = randomWord.replaceFirstChar { it.uppercase() }
 
+                val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                randomWordText.startAnimation(animation)
+
 
                 if (binding.timerToggle.isChecked) {
                     startTimer()
+                    binding.timerTextView.startAnimation(animation)
                 } else {
                     countDownTimer?.cancel()
                     binding.timerTextView.text = ""
