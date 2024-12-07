@@ -1,6 +1,7 @@
 package ru.sapiapps.randomword
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -47,6 +48,8 @@ class MainActivity : ComponentActivity() {
 
     // Запуск таймера
     private fun startTimer() {
+        val tickSound = MediaPlayer.create(this, R.raw.tick)
+        val finSound = MediaPlayer.create(this, R.raw.fin)
         val time: Long = 16000
         val tick: Long = 1000
         val timerTextView = binding.timerTextView
@@ -55,8 +58,12 @@ class MainActivity : ComponentActivity() {
         countDownTimer = object : CountDownTimer(time, tick) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / tick
+                if (secondsLeft != 15L && secondsLeft != 0L) tickSound.start()
                 timerTextView.text = (secondsLeft).toString()
-                if (secondsLeft == 0L) binding.timerToggle.text = getString(R.string.time_off)
+                if (secondsLeft == 0L) {
+                    finSound.start()
+                    binding.timerToggle.text = getString(R.string.time_off)
+                }
             }
 
             override fun onFinish() {
