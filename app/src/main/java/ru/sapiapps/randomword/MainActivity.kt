@@ -1,9 +1,13 @@
 package ru.sapiapps.randomword
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ru.sapiapps.randomword.databinding.ActivityMainBinding
 import android.os.CountDownTimer
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.animation.AnimationUtils
 import org.json.JSONObject
 import java.util.Locale
@@ -194,6 +198,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun vibrate() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(30) // Для старых версий
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -229,10 +242,13 @@ class MainActivity : ComponentActivity() {
 
         binding.timerToggle.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
+                vibrate()
                 countDownTimer?.cancel()
                 binding.timerTextView.text = ""
-            } else if (randomWordText.text != getString(R.string.no_words) && randomWordText.text != getString(R.string.text_field))
+            } else if (randomWordText.text != getString(R.string.no_words) && randomWordText.text != getString(R.string.text_field)) {
+                vibrate()
                 startTimer()
+            }
         }
 
 
