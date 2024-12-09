@@ -36,8 +36,8 @@ class MainActivity : ComponentActivity() {
         val json = assets.open("words.json").bufferedReader().use { it.readText() }
         val jsonObject = JSONObject(json)
 
-        val russian = jsonObject.getJSONObject("russian").toMap()
-        val english = jsonObject.getJSONObject("english").toMap()
+        val russian = jsonObject.getJSONObject("russian").toMap().mapValues { it.value.shuffled() }
+        val english = jsonObject.getJSONObject("english").toMap().mapValues { it.value.shuffled() }
 
         return WordLists(russian, english)
     }
