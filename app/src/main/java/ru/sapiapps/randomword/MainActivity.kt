@@ -2,6 +2,7 @@ package ru.sapiapps.randomword
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,6 +22,10 @@ class MainActivity : ComponentActivity() {
     var currentLanguage: String = "RUS"  // Начальный язык
     val activeWordList = mutableListOf<String>()  // Список активных слов
     private var countDownTimer: CountDownTimer? = null  // Таймер
+
+    private lateinit var soundPool: SoundPool
+    private var tickSoundId: Int = 0
+    private var finSoundId: Int = 0
 
     data class WordLists(
         val russian: Map<String, List<String>>,
@@ -48,20 +53,24 @@ class MainActivity : ComponentActivity() {
 
     // Запуск таймера
     private fun startTimer() {
-        val tickSound = MediaPlayer.create(this, R.raw.tick)
-        val finSound = MediaPlayer.create(this, R.raw.fin)
         val time: Long = 16000
         val tick: Long = 1000
         val timerTextView = binding.timerTextView
-        countDownTimer?.cancel()
+
+        countDownTimer?.cancel() // Отменяем предыдущий таймер, если есть
+        binding.timerToggle.isChecked = true
         binding.timerToggle.text = getString(R.string.time_on)
+
         countDownTimer = object : CountDownTimer(time, tick) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / tick
-                if (secondsLeft != 15L && secondsLeft != 0L) tickSound.start()
+                if (secondsLeft != 15L && secondsLeft != 0L) {
+                    soundPool.play(tickSoundId, 1f, 1f, 0, 0, 1f)
+                }
                 timerTextView.text = (secondsLeft).toString()
+
                 if (secondsLeft == 0L) {
-                    finSound.start()
+                    soundPool.play(finSoundId, 1f, 1f, 0, 0, 1f)
                     binding.timerToggle.text = getString(R.string.time_off)
                 }
             }
@@ -248,7 +257,10 @@ class MainActivity : ComponentActivity() {
 
 
         binding.timerToggle.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
+            if (!isChecked && (binding.timerTextView.text == "" || binding.timerTextView.text == "0") && binding.timerToggle.text == getString(R.string.time_off)) {
+                vibrate()
+                startTimer()
+            } else if (!isChecked) {
                 vibrate()
                 countDownTimer?.cancel()
                 binding.timerTextView.text = ""
@@ -257,6 +269,16 @@ class MainActivity : ComponentActivity() {
                 startTimer()
             }
         }
+
+
+        // Инициализация SoundPool
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .build()
+
+        // Загрузка звуков
+        tickSoundId = soundPool.load(this, R.raw.tick, 1)
+        finSoundId = soundPool.load(this, R.raw.fin, 1)
 
 
         // Обработчик для генерации случайного слова
@@ -284,5 +306,19 @@ class MainActivity : ComponentActivity() {
                 randomWordText.text = getString(R.string.no_words)
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Остановка таймера при сворачивании приложения
+        countDownTimer?.cancel()
+        binding.timerTextView.text = ""
+        binding.timerToggle.text = getString(R.string.time_off)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Освобождаем ресурсы SoundPool
+        soundPool.release()
     }
 }
