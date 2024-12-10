@@ -13,8 +13,8 @@
     <color name="lang_background_color">#8F9E79</color>
 
     <!-- Таймер -->
-    <color name="timer_button_checked">#B3F4C430</color>
-    <color name="timer_button_unchecked">#B3554722</color>
+    <color name="timer_button_checked">#97AA7C</color>
+    <color name="timer_button_unchecked">#5D6353</color>
 
     <!-- Тумблеры -->
     <color name="toggle_checked_background">#F4C430</color>
