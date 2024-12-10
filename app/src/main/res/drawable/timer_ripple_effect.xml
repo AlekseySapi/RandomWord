@@ -6,4 +6,6 @@
             <solid android:color="@android:color/white" />
         </shape>
     </item>
+    <!-- Основной фон кнопки -->
+    <item android:drawable="@drawable/timer_button_background" />
 </ripple>

@@ -12,9 +12,13 @@
     <!-- Переключатель языков -->
     <color name="lang_background_color">#8F9E79</color>
 
+    <!-- Таймер -->
+    <color name="timer_button_checked">#B3F4C430</color>
+    <color name="timer_button_unchecked">#B3554722</color>
+
     <!-- Тумблеры -->
     <color name="toggle_checked_background">#F4C430</color>
-    <color name="toggle_unchecked_background">#705D23</color>
+    <color name="toggle_unchecked_background">#554722</color>
 
     <!-- Кнопка -->
     <color name="button_background_color">#FFBF00</color>
