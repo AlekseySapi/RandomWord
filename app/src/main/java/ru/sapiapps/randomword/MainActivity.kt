@@ -23,9 +23,11 @@ class MainActivity : ComponentActivity() {
     val activeWordList = mutableListOf<String>()  // Список активных слов
     private var countDownTimer: CountDownTimer? = null  // Таймер
 
+    /*
     private lateinit var soundPool: SoundPool
     private var tickSoundId: Int = 0
     private var finSoundId: Int = 0
+     */
 
     data class WordLists(
         val russian: Map<String, List<String>>,
@@ -64,13 +66,15 @@ class MainActivity : ComponentActivity() {
         countDownTimer = object : CountDownTimer(time, tick) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / tick
+                /*
                 if (secondsLeft != 15L && secondsLeft != 0L) {
                     soundPool.play(tickSoundId, 1f, 1f, 0, 0, 1f)
                 }
+                 */
                 timerTextView.text = (secondsLeft).toString()
 
                 if (secondsLeft == 0L) {
-                    soundPool.play(finSoundId, 1f, 1f, 0, 0, 1f)
+                    // soundPool.play(finSoundId, 1f, 1f, 0, 0, 1f)
                     binding.timerToggle.text = getString(R.string.time_off)
                 }
             }
@@ -270,7 +274,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
+        /*
         // Инициализация SoundPool
         soundPool = SoundPool.Builder()
             .setMaxStreams(1)
@@ -279,6 +283,7 @@ class MainActivity : ComponentActivity() {
         // Загрузка звуков
         tickSoundId = soundPool.load(this, R.raw.tick, 1)
         finSoundId = soundPool.load(this, R.raw.fin, 1)
+        */
 
 
         // Обработчик для генерации случайного слова
@@ -319,6 +324,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         // Освобождаем ресурсы SoundPool
-        soundPool.release()
+        // soundPool.release()
     }
 }
