@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">RandomWord</string>
     <string name="btn_text">New Word</string>
-    <string name="text_field">Word</string>
+    <string name="text_field"> </string>
     <string name="toggle_nature">Nature</string>
     <string name="toggle_society">Society</string>
     <string name="toggle_technology">Technology</string>
     <string name="toggle_fantastic">Fantastic</string>
     <string name="no_words">No words..</string>
+    <string name="eng">ENG 🇬🇧</string>
+    <string name="rus">RUS 🇷🇺</string>
+    <string name="time_on">⏳</string>
+    <string name="time_off">⌛</string>
 </resources>

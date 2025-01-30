@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RandomWord</string>
     <string name="btn_text">Новое слово</string>
-    <string name="text_field">Слово</string>
+    <string name="text_field"> </string>
     <string name="toggle_nature">Природа</string>
     <string name="toggle_society">Общество</string>
     <string name="toggle_technology">Технологии</string>
