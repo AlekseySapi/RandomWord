@@ -264,10 +264,7 @@ class MainActivity : ComponentActivity() {
         binding.timerToggle.setOnCheckedChangeListener { _, isChecked ->
             if (binding.timerTextView.text == "" && (randomWordText.text == getString(R.string.no_words) || randomWordText.text == "")) {
                 vibrate()
-            } else if (!isChecked && randomWordText.text != " " && (binding.timerTextView.text == "" || binding.timerTextView.text == "0")) {
-                vibrate()
-                startTimer()
-            } else if (isChecked && randomWordText.text != " " && (binding.timerTextView.text == "" || binding.timerTextView.text == "0")) {
+            } else if (randomWordText.text != " " && (binding.timerTextView.text == "" || binding.timerTextView.text == "0")) {
                 vibrate()
                 startTimer()
             } else {
@@ -278,25 +275,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
-        /*
-
-        if (!isChecked && randomWordText.text != " " && (binding.timerTextView.text == "" || binding.timerTextView.text == "0") && binding.timerToggle.text == getString(R.string.time_off)) {
-            vibrate()
-            startTimer()
-        } else if (isChecked && (randomWordText.text != getString(R.string.no_words) || randomWordText.text != " ")) {
-            vibrate()
-            startTimer()
-        } else if (isChecked) {
-            vibrate()
-            countDownTimer?.cancel()
-            binding.timerTextView.text = ""
-            binding.timerToggle.text = getString(R.string.time_off)
-        } else if (randomWordText.text == getString(R.string.no_words) || randomWordText.text == " ") {
-            vibrate()
-        }
-
-        */
 
         /*
         // Инициализация SoundPool
